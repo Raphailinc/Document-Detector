@@ -1,29 +1,33 @@
-# Document Detector & Warper
+# Document Detector
 
-Поиск листа/документа на фото и его «распрямление» в топ-даун проекцию с помощью OpenCV.
+[![CI](https://github.com/Raphailinc/Document-Detector/actions/workflows/ci.yml/badge.svg)](https://github.com/Raphailinc/Document-Detector/actions/workflows/ci.yml)
 
-## Что умеет
-- Находит самый крупный четырёхугольный контур (документ) на изображении.
-- Упорядочивает углы (TL, TR, BR, BL) и делает перспективное преобразование.
-- CLI: `python -m algorithm_finding_text input.jpg -o output.jpg`.
+[English](README.md) · [Русский](README.ru.md)
 
-## Быстрый старт
+A focused computer-vision project that locates a document-shaped quadrilateral and transforms it into a top-down view.
+
+## What it does
+
+- Detect a large four-corner contour using OpenCV.
+- Order corners consistently before applying a perspective transform.
+- Use the same functions from Python or a command-line entry point.
+- Test geometry with generated image fixtures.
+
+## Run locally
+
 ```bash
 python -m venv .venv
-. .venv/bin/activate
-pip install -r requirements.txt
-python -m algorithm_finding_text path/to/photo.jpg -o warped.jpg
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python -m algorithm_finding_text input.jpg -o output.jpg
 ```
 
-## API
-- `detect_document(image, min_area_ratio=0.2) -> (corners, contour)`
-- `warp_document(image, corners, output_size=None) -> warped_image`
-- `order_corners(points) -> ordered_points`
+## Checks
 
-## Тесты
 ```bash
-pytest
+python -m pytest
 ```
 
-## Заметки
-- Используется `opencv-python-headless` (без GUI), поэтому показ изображений не требуется — только чтение/запись файлов.
+## Scope and implementation notes
+
+This is contour-based image processing. It performs document detection and warping, not OCR. Results depend on contrast, document visibility and the scene background.
